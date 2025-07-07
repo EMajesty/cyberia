@@ -1,0 +1,92 @@
+meta:
+  engine: 4.1.0
+units:
+  kx: cx
+  ky: cy
+  px: kx + 2
+  py: ky + 2
+  $default_width: cx
+  $default_height: cy
+points:
+  zones:
+    matrix:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        rotate: 5
+      columns:
+        pinky:
+        ring:
+          rows.mod.skip: true
+          key.splay: -5
+          key.origin: [-12, -19]
+          key.stagger: 12
+        middle:
+          rows.mod.skip: true
+          key.splay: -5
+          key.origin: [-12, -19]
+          key.stagger: 10
+        index:
+          rows.mod.skip: true
+          key.stagger: -10
+        inner:
+          rows.mod.skip: true
+          key.stagger: -10
+      rows:
+        mod:
+        bottom:
+        home:
+        top:
+    thumbs:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-20, -19]
+      columns:
+        near:
+        home:
+          key.spread:
+          key.splay: -10
+          key.origin: [-9, -9]
+        far:
+          key.spread: 
+          key.splay: -10
+          key.origin: [-9, -9]
+      rows:
+        thumb:
+  rotate: -20
+  mirror:
+    ref: matrix_inner_top
+    distance: 35
+pcbs:
+  keeb:
+    template: kicad8
+    footprints:
+      via:
+        what: via
+        where:
+          ref.aggregate.parts: [thumbs_far_thumb, mirror_thumbs_far_thumb]
+        params:
+          net: gnd
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          designator: SW
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          designator: D
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
