@@ -1,0 +1,102 @@
+units:
+  kx: cx
+  ky: cy
+  px: kx + 2
+  py: ky + 2
+points:
+  zones:
+    matrix:
+      rotate: -15
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        rotate: 5
+      columns:
+        pinky:
+        ring:
+          key.splay: -5
+          key.origin: [-12, -19]
+          key.stagger: 14
+        middle:
+          key.splay: -5
+          key.origin: [-12, -19]
+          key.stagger: 8
+        index:
+          key.stagger: -12
+        inner:
+          key.stagger: -4
+      rows:
+        bottom:
+        home:
+        top:
+    thumbfan:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-26, -20]
+      columns:
+        near:
+        home:
+          key.spread: 19
+          key.splay: -8
+          key.origin: [-10, -9]
+        far:
+          key.spread: 19
+          key.splay: -8
+          key.origin: [-10, -9]
+      rows:
+        thumb:
+  mirror:
+    ref: matrix_inner_home
+    distance: 50
+outlines:
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx-0.5, ky-0.5]
+  cutout:
+    - what: rectangle
+      where: true
+      size: [px, py]
+      fillet: 1.2
+  pcb:
+    - what: rectangle
+      where:
+        shift: [0, -1.5]
+        aggregate.parts:
+          - matrix_inner_home
+          - mirror_matrix_inner_home
+      size: [224, 112]
+      fillet: 4
+  case:
+    - what: rectangle
+      where:
+        shift: [0, -1.5]
+        aggregate.parts:
+          - matrix_inner_home
+          - mirror_matrix_inner_home
+      size: [240, 130]
+      fillet: 4
+  combo_pcb:
+    - name: pcb
+    - name: keys
+      operation: subtract
+  combo_case:
+    - name: case
+    - name: cutout
+      operation: subtract
+pcbs:
+  cyberia:
+    outlines:
+      main:
+        outline: pcb
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
