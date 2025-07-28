@@ -1,1 +1,1 @@
-![pcb](pcb.png)
+![cyberia](cyberia.jpg)
